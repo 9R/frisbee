@@ -21,7 +21,8 @@ const char* AnimationNames[] = {
 
 String responseHead = String("") +
                    "<!DOCTYPE html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
-                   "<html><head><title>CaptivePortal</title></head><body>" +
+                   "<html><head><title>CaptivePortal</title>" +
+                   "<meta http-equiv=\"refresh\" content=\"5\" /></head><body>" +
                    "<h1>Frisbee Settings!</h1><p>Choose Animation:</p><p>" +
                    "<a href=\"/anim/" + ThreeDotsRGB + "\">ThreeDotsRGB</a><br/>" +
                    "<a href=\"/anim/" + Glow + "\">Glow</a><br/>" +
