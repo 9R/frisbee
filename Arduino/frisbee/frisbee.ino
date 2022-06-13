@@ -10,6 +10,10 @@
 // How many NeoPixels are attached to the Arduino?
 #define LED_COUNT 49
 
+// Ajust rotation direction. 1 if MPU6050 faces away from disc, -1 if faces towards disc.
+#define REVERSE_ROTATION 1
+
+
 // Declare our NeoPixel strip object:
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -223,7 +227,7 @@ void loop() {
 
 
   // GyZ in °/s ??
-  long degPerSec = GyZ * 2000 / 32768; // °/s
+  long degPerSec = GyZ * 2000 / 32768 * REVERSE_ROTATION; // °/s
   long curTime = micros(); // µs = s/1000000
   int deltaT = curTime - lastTime; // µs = s/1000000
   lastTime = curTime; // ms = s/1000000
