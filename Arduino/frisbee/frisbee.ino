@@ -27,7 +27,7 @@ int blue = LED_COUNT * 2 / 3;
 #define delta LED_COUNT - 1
 
 #define INIT_TIME 9
-#define RGB_BRIGHTNESS 127
+int RGB_BRIGHTNESS = 127 ;
 
 //int pos1000 = 0; // 1000°
 long mLEDshift = 0; // LED/1024

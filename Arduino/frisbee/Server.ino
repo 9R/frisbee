@@ -35,14 +35,19 @@ String responseHead = String("") +
                    "<a href=\"/anim/" + FadingDot + "\">FadingDot</a><br/>" +
                    "<a href=\"/anim/" + Sparkling + "\">Sparkling</a><br/>" +
                    "<a href=\"/anim/" + ColorByDirection + "\">ColorByDirection</a><br/>" +
-                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" ;
+                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" +
+                   "<br/><a href=\"/brightnesshi\">Brightness High</a><br/>" +
+                   "<a href=\"/brightnessmed\">Brightness Medium</a><br/>" +
+                   "<a href=\"/brightnesslow\">Brightness Low</a><br/>" ;
 
-String responseDyn = String("") +
+String responseCurrAnim = String("") +
                    "<br/>Currently active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
 
 String responseFoot = String("") +
                    "</p></body></html>";
 
+String responseBrightness ;
+String responseDyn ;
 String responseHTML ;
 
 bool _Srv_running = false;
@@ -50,7 +55,9 @@ bool _Srv_running = false;
 void Srv_setup() {
   // reply to all requests with same HTML
   webServer.onNotFound([]() {
-    responseDyn = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+    responseCurrAnim = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+    responseBrightness = String("") + "<br/>Currently Brightness: " + RGB_BRIGHTNESS + "<br/>" ;
+    responseDyn = responseBrightness + responseCurrAnim ;
     responseHTML = responseHead + responseDyn + responseFoot ;
     webServer.send(200, "text/html", responseHTML);
     String uri = webServer.uri();
@@ -62,6 +69,15 @@ void Srv_setup() {
       Serial.print("currentAnim = ");
       Serial.println(currentAnim);
     }
+    if (uri.startsWith("/brightnesshi")) {
+          RGB_BRIGHTNESS = 127;
+      }
+    if (uri.startsWith("/brightnessmed")) {
+          RGB_BRIGHTNESS = 30;
+      }
+    if (uri.startsWith("/brightnesslow")) {
+          RGB_BRIGHTNESS = 5;
+      }
   });
 
   webServer.begin();
