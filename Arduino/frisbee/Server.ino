@@ -2,7 +2,24 @@
 
 ESP8266WebServer  webServer(80);          // HTTP server
 
-String responseHTML = String("") +
+const char* AnimationNames[] = {
+  "ThreeDotsRGB",
+  "Glow",
+  "RedToGreen",
+  "HueFuu",
+  "TwoWayRotation",
+  "SineRotation",
+  "Radioactive",
+  "Randots",
+  "FadingDot",
+  "Sparkling",
+  "ColorByDirection",
+  "ReversedDots",
+
+  "NumOfAnimations"
+};
+
+String responseHead = String("") +
                    "<!DOCTYPE html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
                    "<html><head><title>CaptivePortal</title></head><body>" +
                    "<h1>Frisbee Settings!</h1><p>Choose Animation:</p><p>" +
@@ -17,14 +34,23 @@ String responseHTML = String("") +
                    "<a href=\"/anim/" + FadingDot + "\">FadingDot</a><br/>" +
                    "<a href=\"/anim/" + Sparkling + "\">Sparkling</a><br/>" +
                    "<a href=\"/anim/" + ColorByDirection + "\">ColorByDirection</a><br/>" +
-                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" +
+                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" ;
+
+String responseDyn = String("") +
+                   "<br/>Currently active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+
+String responseFoot = String("") +
                    "</p></body></html>";
+
+String responseHTML ;
 
 bool _Srv_running = false;
 
 void Srv_setup() {
   // reply to all requests with same HTML
   webServer.onNotFound([]() {
+    responseDyn = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+    responseHTML = responseHead + responseDyn + responseFoot ;
     webServer.send(200, "text/html", responseHTML);
     String uri = webServer.uri();
     Serial.println(uri);
