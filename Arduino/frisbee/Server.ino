@@ -70,14 +70,14 @@ void Srv_setup() {
       Serial.println(currentAnim);
     }
     if (uri.startsWith("/brightnesshi")) {
-          RGB_BRIGHTNESS = 127;
-      }
+      RGB_BRIGHTNESS = 127;
+    }
     if (uri.startsWith("/brightnessmed")) {
-          RGB_BRIGHTNESS = 30;
-      }
+      RGB_BRIGHTNESS = 30;
+    }
     if (uri.startsWith("/brightnesslow")) {
-          RGB_BRIGHTNESS = 5;
-      }
+      RGB_BRIGHTNESS = 5;
+    }
   });
 
   webServer.begin();
