@@ -69,8 +69,7 @@ boolean switchOnCollision = true;
 
 #define GLOW_BRIGHTNESS 17
 #define ANIM_BRIGHTNESS 64
-#define LIGHTNING_BRIGHTNESS 255
-
+int LIGHTNING_BRIGHTNESS = RGB_BRIGHTNESS + 10 ;
 
 #include<Wire.h>
 const int MPU_addr=0x68;  // I2C address of the MPU-6050
@@ -431,6 +430,7 @@ void loop() {
   if (AcXY >= 10000) {
     if (showCollision) {
       //for (int i = 0; i < sqrt(AcXY)/10; i++) {
+      LIGHTNING_BRIGHTNESS = RGB_BRIGHTNESS + 10 ;
       for (int i = 0; i < LED_COUNT; i++) {
         strip.setPixelColor(i, LIGHTNING_BRIGHTNESS, LIGHTNING_BRIGHTNESS, LIGHTNING_BRIGHTNESS);
       }
