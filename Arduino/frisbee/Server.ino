@@ -22,8 +22,8 @@ const char* AnimationNames[] = {
 String responseHead = String("") +
                    "<!DOCTYPE html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
                    "<html><head><title>CaptivePortal</title>" +
-                   "<meta http-equiv=\"refresh\" content=\"5\" /></head><body>" +
-                   "<h1>Frisbee Settings!</h1><p>Choose Animation:</p><p>" +
+                   "<meta http-equiv=\"refresh\" content=\"5\;url=/\" /></head><body>" +
+                   "<h1>Frisbee Settings!</h1><h3>Choose Animation:</h3><p>" +
                    "<a href=\"/anim/" + ThreeDotsRGB + "\">ThreeDotsRGB</a><br/>" +
                    "<a href=\"/anim/" + Glow + "\">Glow</a><br/>" +
                    "<a href=\"/anim/" + RedToGreen + "\">RedToGreen</a><br/>" +
@@ -35,31 +35,30 @@ String responseHead = String("") +
                    "<a href=\"/anim/" + FadingDot + "\">FadingDot</a><br/>" +
                    "<a href=\"/anim/" + Sparkling + "\">Sparkling</a><br/>" +
                    "<a href=\"/anim/" + ColorByDirection + "\">ColorByDirection</a><br/>" +
-                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" +
-                   "<br/><a href=\"/brightnesshi\">Brightness High</a><br/>" +
+                   "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><p/>" +
+                   "<h3>Settings:</h3><p>" +
+                   "<a href=\"/brightnesshi\">Brightness High</a><br/>" +
                    "<a href=\"/brightnessmed\">Brightness Medium</a><br/>" +
                    "<a href=\"/brightnesslow\">Brightness Low</a><br/>" +
-
-String responseCurrAnim = String("") +
-                   "<br/>Currently active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
-
                    "<br/><a href=\"/collisionshow\">Toggle Show Collisions</a><br/>" +
                    "<a href=\"/collisionswitch\">Toggle Switch On Collisions</a></p>" + 
                    "<h3>State:</h3><p>";
 
+String responseCurrAnim ;
 String responseCollisionSettings ;
 String responseBrightness ;
 String responseDyn ;
 String responseHTML ;
 
 String responseFoot = "</p></body></html>";
+
 bool _Srv_running = false;
 
 void Srv_setup() {
   // reply to all requests with same HTML
   webServer.onNotFound([]() {
-    responseCurrAnim = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
-    responseBrightness = String("") + "<br/>Currently Brightness: " + RGB_BRIGHTNESS + "<br/>" ;
+    responseCurrAnim = String("") + "Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+    responseBrightness = String("") + "Brightness: " + RGB_BRIGHTNESS + "<br/>" ;
     responseCollisionSettings = String("") + "<br/>Show Collisions: " + showCollision + "<br/>" +
                                 "Change Animation On Collision: " + switchOnCollision + "<br/>" ;
     responseDyn =  responseBrightness + responseCurrAnim + responseCollisionSettings ;
