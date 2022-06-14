@@ -38,10 +38,16 @@ String responseHead = String("") +
                    "<a href=\"/anim/" + ReversedDots + "\">ReversedDots</a><br/>" +
                    "<br/><a href=\"/brightnesshi\">Brightness High</a><br/>" +
                    "<a href=\"/brightnessmed\">Brightness Medium</a><br/>" +
-                   "<a href=\"/brightnesslow\">Brightness Low</a><br/>" ;
+                   "<a href=\"/brightnesslow\">Brightness Low</a><br/>" +
+                   "<a href=\"/collisionshow\">Toggle Show Collisions</a><br/>" +
+                   "<a href=\"/collisionswitch\">Toggle Switch On Collisions</a><br/>" ;
 
 String responseCurrAnim = String("") +
                    "<br/>Currently active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
+
+String responseCollisionSettings = String("") + "<>br/" +
+                   "<br/>Show Collisions: " + showCollision + "<br/>" +
+                   "<br/>Switch Animation On Collision: " + switchOnCollision + "<br/>" ;
 
 String responseFoot = String("") +
                    "</p></body></html>";
@@ -57,7 +63,10 @@ void Srv_setup() {
   webServer.onNotFound([]() {
     responseCurrAnim = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
     responseBrightness = String("") + "<br/>Currently Brightness: " + RGB_BRIGHTNESS + "<br/>" ;
-    responseDyn = responseBrightness + responseCurrAnim ;
+    responseCollisionSettings = String("") + "<>br/" +
+                                "<br/>Show Collisions: " + showCollision + "<br/>" +
+                                "<br/>Switch Animation On Collision: " + switchOnCollision + "<br/>" ;
+    responseDyn = responseBrightness + responseCurrAnim + responseCollisionSettings ;
     responseHTML = responseHead + responseDyn + responseFoot ;
     webServer.send(200, "text/html", responseHTML);
     String uri = webServer.uri();
@@ -77,6 +86,12 @@ void Srv_setup() {
     }
     if (uri.startsWith("/brightnesslow")) {
       RGB_BRIGHTNESS = 5;
+    }
+    if (uri.startsWith("/collisionshow")) {
+      showCollision = !showCollision ;      
+    }
+    if (uri.startsWith("/collisionswitch")) {
+      switchOnCollision = !switchOnCollision ;      
     }
   });
 
