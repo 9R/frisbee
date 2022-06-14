@@ -39,23 +39,20 @@ String responseHead = String("") +
                    "<br/><a href=\"/brightnesshi\">Brightness High</a><br/>" +
                    "<a href=\"/brightnessmed\">Brightness Medium</a><br/>" +
                    "<a href=\"/brightnesslow\">Brightness Low</a><br/>" +
-                   "<a href=\"/collisionshow\">Toggle Show Collisions</a><br/>" +
-                   "<a href=\"/collisionswitch\">Toggle Switch On Collisions</a><br/>" ;
 
 String responseCurrAnim = String("") +
                    "<br/>Currently active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
 
-String responseCollisionSettings = String("") + "<>br/" +
-                   "<br/>Show Collisions: " + showCollision + "<br/>" +
-                   "<br/>Switch Animation On Collision: " + switchOnCollision + "<br/>" ;
+                   "<br/><a href=\"/collisionshow\">Toggle Show Collisions</a><br/>" +
+                   "<a href=\"/collisionswitch\">Toggle Switch On Collisions</a></p>" + 
+                   "<h3>State:</h3><p>";
 
-String responseFoot = String("") +
-                   "</p></body></html>";
-
+String responseCollisionSettings ;
 String responseBrightness ;
 String responseDyn ;
 String responseHTML ;
 
+String responseFoot = "</p></body></html>";
 bool _Srv_running = false;
 
 void Srv_setup() {
@@ -63,10 +60,9 @@ void Srv_setup() {
   webServer.onNotFound([]() {
     responseCurrAnim = String("") + "<br/>Currently Active Animation: " + AnimationNames[currentAnim] + "<br/>" ;
     responseBrightness = String("") + "<br/>Currently Brightness: " + RGB_BRIGHTNESS + "<br/>" ;
-    responseCollisionSettings = String("") + "<>br/" +
-                                "<br/>Show Collisions: " + showCollision + "<br/>" +
-                                "<br/>Switch Animation On Collision: " + switchOnCollision + "<br/>" ;
-    responseDyn = responseBrightness + responseCurrAnim + responseCollisionSettings ;
+    responseCollisionSettings = String("") + "<br/>Show Collisions: " + showCollision + "<br/>" +
+                                "Change Animation On Collision: " + switchOnCollision + "<br/>" ;
+    responseDyn =  responseBrightness + responseCurrAnim + responseCollisionSettings ;
     responseHTML = responseHead + responseDyn + responseFoot ;
     webServer.send(200, "text/html", responseHTML);
     String uri = webServer.uri();
