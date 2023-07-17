@@ -1,0 +1,3 @@
+[submodule "mechanical/ws2812_disc"]
+	path = mechanical/ws2812_disc
+	url = https://github.com/9R/ws2812_disc.git
